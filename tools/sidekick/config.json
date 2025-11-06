@@ -1,0 +1,5 @@
+{
+  "project": "store-front-demo",
+  "editUrlLabel": "Document Authoring",
+  "editUrlPattern": "https://da.live/edit#/vimal-patel-bvi/store-front-demo{{pathname}}"
+}
