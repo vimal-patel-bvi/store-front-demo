@@ -1,0 +1,4 @@
+/*! Copyright 2025 Adobe
+All Rights Reserved. */
+import{jsxs as n,jsx as e}from"@dropins/tools/preact-jsx-runtime.js";import{classes as i}from"@dropins/tools/lib.js";import"@dropins/tools/preact-hooks.js";/* empty css                 */const s=({className:r,children:o,...t})=>n("div",{...t,className:i(["vimal-custom-component-form-component",r]),children:[e("h2",{children:"Login to Your Account"}),e("p",{children:"Access exclusive offers and personalized experiences."}),n("form",{children:[e("input",{type:"email",placeholder:"Email Address",required:!0}),e("input",{type:"password",placeholder:"Password",required:!0}),e("button",{type:"submit",children:"Sign In"})]}),o]}),l=({children:r,...o})=>e(s,{...o,children:r});export{l as FormDropinContrainer,l as default};
+//# sourceMappingURL=FormDropinContrainer.js.map

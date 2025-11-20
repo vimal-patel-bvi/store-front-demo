@@ -1,0 +1,161 @@
+/********************************************************************
+ *  Copyright 2025 Adobe
+ *  All Rights Reserved.
+ *
+ * NOTICE:  Adobe permits you to use, modify, and distribute this 
+ * file in accordance with the terms of the Adobe license agreement 
+ * accompanying it. 
+ *******************************************************************/
+
+/* Root container */
+.my-custom-dropin-login-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: "Adobe Clean", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #2c2c2c;
+}
+
+/* Title and subtitle */
+.my-custom-dropin-login-form h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.my-custom-dropin-login-form p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Form layout */
+.my-custom-dropin-login-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Input wrapper */
+.my-custom-dropin-login-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Input styles */
+.my-custom-dropin-login-form__input,
+.my-custom-dropin-login-form input[type="email"],
+.my-custom-dropin-login-form input[type="password"] {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.my-custom-dropin-login-form__input:focus,
+.my-custom-dropin-login-form input[type="email"]:focus,
+.my-custom-dropin-login-form input[type="password"]:focus {
+  border-color: #1473e6;
+  box-shadow: 0 0 0 3px rgba(20, 115, 230, 0.2);
+  outline: none;
+}
+
+.my-custom-dropin-login-form__input--error {
+  border-color: #d7373f;
+}
+
+.my-custom-dropin-login-form__input--error:focus {
+  box-shadow: 0 0 0 3px rgba(215, 55, 63, 0.2);
+}
+
+/* Error text */
+.my-custom-dropin-login-form__error {
+  color: #d7373f;
+  font-size: 0.85rem;
+}
+
+/* Remember me checkbox */
+.my-custom-dropin-login-form .remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* Button styles */
+.my-custom-dropin-login-form button[type="submit"] {
+  padding: 0.75rem;
+  background-color: #1473e6;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.my-custom-dropin-login-form button[type="submit"]:hover {
+  background-color: #0f5fc8;
+  box-shadow: 0 2px 6px rgba(20, 115, 230, 0.3);
+}
+
+.my-custom-dropin-login-form button[type="submit"]:disabled {
+  background-color: #7da4df;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Forgot password link */
+.my-custom-dropin-login-form .forgot-password {
+  display: inline-block;
+  text-align: right;
+  font-size: 0.9rem;
+  color: #1473e6;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.my-custom-dropin-login-form .forgot-password:hover {
+  color: #0f5fc8;
+}
+
+/* Status messaging */
+.my-custom-dropin-login-form__status {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.my-custom-dropin-login-form__status--error {
+  color: #d7373f;
+}
+
+.my-custom-dropin-login-form__status--success {
+  color: #2e7d32;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .my-custom-dropin-login-form {
+    padding: 1.5rem;
+  }
+
+  .my-custom-dropin-login-form h2 {
+    font-size: 1.3rem;
+  }
+
+  .my-custom-dropin-login-form p {
+    font-size: 0.9rem;
+  }
+}
