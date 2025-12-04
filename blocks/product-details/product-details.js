@@ -24,6 +24,7 @@ import ProductDescription from '@dropins/storefront-pdp/containers/ProductDescri
 import ProductAttributes from '@dropins/storefront-pdp/containers/ProductAttributes.js';
 import ProductGallery from '@dropins/storefront-pdp/containers/ProductGallery.js';
 import ProductGiftCardOptions from '@dropins/storefront-pdp/containers/ProductGiftCardOptions.js';
+import ProductDetails from '@dropins/storefront-pdp/containers/ProductDetails.js';
 
 // Libs
 import {
@@ -84,36 +85,46 @@ export default async function decorate(block) {
 
   // Layout
   const fragment = document.createRange().createContextualFragment(`
-    <div class="product-details__alert"></div>
-    <div class="product-details__wrapper">
-      <div class="product-details__left-column">
-        <div class="product-details__gallery"></div>
-      </div>
-      <div class="product-details__right-column">
-        <div class="product-details__header"></div>
-        <div class="product-details__price"></div>
-        <div class="product-details__gallery"></div>
-        <div class="product-details__short-description"></div>
-        <div class="product-details__gift-card-options"></div>
-        <div class="product-details__configuration">
-          <div class="product-details__options"></div>
-          <div class="product-details__quantity"></div>
-          <div class="product-details__buttons">
-            <div class="product-details__buttons__add-to-cart"></div>
-            <div class="product-details__buttons__add-to-wishlist"></div>
-          </div>
+    <div class="product-details">
+      <div class="product-details__alert"></div>
+      <div class="product-details__breadcrumbs"></div>
+      <div class="product-details__wrapper">
+        <div class="product-details__left-column">
+          <div class="product-details__gallery"></div>
         </div>
-        <div class="product-details__description"></div>
-        <div class="product-details__attributes"></div>
+        <div class="product-details__right-column">
+          <div class="product-details__gallery product-details__gallery--mobile"></div>
+          <div class="product-details__header"></div>
+          <div class="product-details__meta">
+            <div class="product-details__price"></div>
+            <div class="product-details__stock-status"></div>
+          </div>
+          <div class="product-details__short-description"></div>
+          <div class="product-details__configuration">
+            <div class="product-details__options"></div>
+            <div class="product-details__gift-card-options"></div>
+            <div class="product-details__quantity-and-actions">
+              <div class="product-details__quantity"></div>
+              <div class="product-details__buttons">
+                <div class="product-details__buttons__add-to-cart"></div>
+                <div class="product-details__buttons__add-to-wishlist"></div>
+              </div>
+            </div>
+          </div>
+          <div class="product-details__description"></div>
+          <div class="product-details__attributes"></div>
+        </div>
       </div>
     </div>
   `);
 
   const $alert = fragment.querySelector('.product-details__alert');
-  const $gallery = fragment.querySelector('.product-details__gallery');
+  const $breadcrumbs = fragment.querySelector('.product-details__breadcrumbs');
+  const $gallery = fragment.querySelector('.product-details__left-column .product-details__gallery');
+  const $galleryMobile = fragment.querySelector('.product-details__gallery--mobile');
   const $header = fragment.querySelector('.product-details__header');
   const $price = fragment.querySelector('.product-details__price');
-  const $galleryMobile = fragment.querySelector('.product-details__right-column .product-details__gallery');
+  const $stockStatus = fragment.querySelector('.product-details__stock-status');
   const $shortDescription = fragment.querySelector('.product-details__short-description');
   const $options = fragment.querySelector('.product-details__options');
   const $quantity = fragment.querySelector('.product-details__quantity');
@@ -124,6 +135,18 @@ export default async function decorate(block) {
   const $attributes = fragment.querySelector('.product-details__attributes');
 
   block.replaceChildren(fragment);
+
+  // Stock status
+  if (product && $stockStatus) {
+    const inStock = product.inStock;
+    const stockText = inStock ? 'In stock' : 'Out of stock';
+    $stockStatus.textContent = stockText;
+    $stockStatus.classList.add(
+      inStock
+        ? 'product-details__stock-status--in-stock'
+        : 'product-details__stock-status--out-of-stock',
+    );
+  }
 
   const gallerySlots = {
     CarouselThumbnail: (ctx) => {
@@ -185,7 +208,7 @@ export default async function decorate(block) {
       slots: gallerySlots,
     })($gallery),
 
-    // Header
+    // Header (product title / SKU)
     pdpRendered.render(ProductHeader, {})($header),
 
     // Price
@@ -224,6 +247,20 @@ export default async function decorate(block) {
       product,
     })($wishlistToggleBtn),
   ]);
+
+  // Render ProductDetails to expose and mount breadcrumbs into our layout.
+  // We reuse the existing PDP container so breadcrumb data stays in sync
+  // with the Magento 2 catalog structure.
+  if ($breadcrumbs) {
+    pdpRendered.render(ProductDetails, {
+      hideQuantity: true,
+      hideShortDescription: true,
+      hideDescription: true,
+      hideAttributes: true,
+      hideURLParams: false,
+      hideSelectedOptionValue: false,
+    })($breadcrumbs);
+  }
 
   // Configuration – Button - Add to Cart
   const addToCart = await UI.render(Button, {
